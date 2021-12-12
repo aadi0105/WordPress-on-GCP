@@ -1,0 +1,74 @@
+
+# Set up Wordpress on Google Cloud
+author(s)- [@aadi0105](https://github.com/aadi0105), [@Prateek937](https://github.com/Prateek937)
+
+This tutorial shows how to quickly set up [WordPress](https://wordpress.com/create/?aff=15767&cid=1654213&cmp_id=11549382845&adg_id=111353876614&kwd=word%20press&device=c) in Google Cloud   Platform
+
+## Before you begin
+
+ To set up your server, you need a Google Cloud project. You can use an existing project or [create a project.](https://console.cloud.google.com/projectcreate?previousPage=%2Fhome%2Fdashboard%3Fproject%3Dcurious-bounty-333513%26_ga%3D2.168087393.1166024628.1639031254-389604472.1636795049%26_gac%3D1.61523678.1639109720.CjwKCAiA78aNBhAlEiwA7B76pwppeDUXCXPzlx) 
+
+ ## Costs
+This tutorial uses billable components of Google Cloud, including Compute Engine.  
+Use the [pricing calculator](https://cloud.google.com/products/calculator) to generate a cost estimate based on your server needs.
+
+## Launch  a  WordPress instance
+For this tutorial, you use a virtual machine configuration with **small(1 shared vCPU)** cores and 1.7 GB of RAM.
+***You can also customize  virtual machine configuration according to your need  by choosing*** **Custom** ***from the*** **Machine Type** ***menu.***
+1. Go to [Marketplace](https://console.cloud.google.com/marketplace?project=curious-bounty-333513) in  navigation menu.
+2. Search for the  official [Wordpress](https://console.cloud.google.com/marketplace/product/click-to-deploy-images/wordpress?project=curious-bounty-333513) and click on **LAUNCH** button
+3. Set the deployment  name to  `wordpress_server`.
+4. Set **Region** to where you want your server to be running.
+5. In the **Machine configuration** section, choose the **Machine Type**.
+6. Select  **small(1 shared vCPU)**.
+7. Enter your **Administrator e-mail address.**
+8. Check the **Install phpMyAdmin** box.
+9. In the Boot disk section, make the following changes:
+  
+    a. Set the Boot disk type as **SSD Persistent Disk**.
+
+    b. Set Boot disk Size  to 15 GB.
+
+**Note-** ***You can  Set the Boot disk type and Size according to  your setup.***
+
+10. In the Networking section, make the following changes:
+  
+    a. Left the  **Network interfaces ** to default.
+
+    b. In Firewall section check the both boxes, `Allow HTTP traffic from   the Internet` and `Allow HTTPS traffic from the Internet` .
+  
+    c. In Stackdriver section check the both boxes, `Enable Stackdriver Logging` and `Enable Stackdriver Monitoring` .
+
+11. Click **Deploy**.
+It takes a few moments to  install  your WordPress.
+
+12. Now you will be landed to a page where you will get the whole info about your  WordPress. 
+## Linking Domain name to WordPress
+
+1. Go to the Compute Engine VM instances page in navigation menu.
+2. Here you will find the machine which you have created for WordPress.
+3. Copy the **External IP**.
+4. Go to the **Networking** then  **Network services** then **Cloud DNS** page in navigation menu.
+5. Click **CREATE ZONE**.
+6. Set the **Zone type** as **Public**.
+7. Enter the **Zone name**.
+8. Enter the **DNS name**.
+9. Click **Create**.
+10. Click **ADD RECORD SET**.
+11.  In the **Resource record Type** section, choose the **A**.
+12. In **IPv4 Address** Paste **External IP**.
+13. Click **CREATE**.
+14. Again Click **ADD RECORD SET**.
+15. In DNS Name Enter **www**.
+16. In the **Resource record Type** section, choose the **CNAME**.
+17. In the **Canonical name** section, Enter the Domain Name.
+18. Click **CREATE**.
+19. Click **Registrar Setup**.
+20. Now you will get all of your nameservers which  can be added to DNS Management of your Domain Name Provider.
+21. Now you can log-in to Wordpress Admin pannel by `Your domain name/wp-admin`.
+
+## Cleaning up
+After you've finished the tutorial, you can clean up the resources that you created on Google Cloud so that you won't be charged for them in the future. The following steps will show how to delete or turn off these resources.
+
+1. In the Cloud Console, go to the **Projects** page.
+2. In the project list, select the project that you want to delete and click **Delete**.
